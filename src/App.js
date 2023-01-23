@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  useBreakpointValue,
   useToast,
   Container,
   Flex,
@@ -17,6 +18,14 @@ import "./App.css";
 
 function App() {
   const [inputValue, setInputValue] = useState("");
+  const fontIcon = useBreakpointValue({
+    base: 30,
+    md: 50,
+  });
+  const toastMB = useBreakpointValue({
+    base: "10px",
+    md: "100px",
+  });
   const toast = useToast();
 
   //#a9c45e
@@ -25,22 +34,31 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Flex h="300px" flexDir="column" align="center" justify="center">
+        <Flex
+          h={["200px", "250px", "300px"]}
+          flexDir="column"
+          align="center"
+          justify="center"
+        >
           <Box>
-            <Text fontSize={80} fontWeight="black" letterSpacing={0.5}>
+            <Text
+              fontSize={[45, 60, 80]}
+              fontWeight="black"
+              letterSpacing={0.5}
+            >
               NutriFit
             </Text>
-            <Text fontSize={40} fontWeight="bold">
+            <Text fontSize={[28, 35, 40]} fontWeight="bold">
               healthy food made easy.
             </Text>
           </Box>
         </Flex>
-        <Container maxW="6xl" mt={10}>
-          <Flex align="flex-end" justify="space-between">
-            <HStack>
+        <Container maxW="6xl" mt={[0, 10]}>
+          <Flex align="flex-end" justify="space-between" flexWrap="wrap">
+            <Flex flexWrap="wrap" gap={4}>
               <ButtomChakra
-                h="70px"
-                leftIcon={<DiApple fontSize={50} />}
+                h={["55px", "70px"]}
+                leftIcon={<DiApple fontSize={fontIcon} />}
                 borderRadius="5px"
                 bg="black"
                 _hover={{
@@ -50,18 +68,22 @@ function App() {
               >
                 <Text>
                   {" "}
-                  <span style={{ fontStyle: "italic", fontSize: "0.8rem" }}>
+                  <Text as="span" fontStyle="italic" fontSize="0.8rem">
                     Coming soon...
-                  </span>
+                  </Text>
                   <br style={{ marginBottom: "0px" }} />
-                  <span style={{ fontWeight: "bold", fontSize: "1.5rem" }}>
+                  <Text
+                    as="span"
+                    fontWeight="bold"
+                    fontSize={["1rem", "1.5rem"]}
+                  >
                     App Store
-                  </span>
+                  </Text>
                 </Text>
               </ButtomChakra>
               <ButtomChakra
-                h="70px"
-                leftIcon={<IoLogoGooglePlaystore fontSize={50} />}
+                h={["55px", "70px"]}
+                leftIcon={<IoLogoGooglePlaystore fontSize={fontIcon} />}
                 borderRadius="5px"
                 bg="black"
                 _hover={{
@@ -71,18 +93,26 @@ function App() {
               >
                 <Text>
                   {" "}
-                  <span style={{ fontStyle: "italic", fontSize: "0.8rem" }}>
+                  <Text as="span" fontStyle="italic" fontSize="0.8rem">
                     Coming soon...
-                  </span>
+                  </Text>
                   <br style={{ marginBottom: "0px" }} />
-                  <span style={{ fontWeight: "bold", fontSize: "1.5rem" }}>
+                  <Text
+                    as="span"
+                    fontWeight="bold"
+                    fontSize={["1rem", "1.5rem"]}
+                  >
                     Google Play
-                  </span>
+                  </Text>
                 </Text>
               </ButtomChakra>
-            </HStack>
-            <VStack align="flex-start">
-              <Text fontSize="2.5rem">Get early access</Text>
+            </Flex>
+            <VStack
+              align="flex-start"
+              mt={["35px", "30px", "0px"]}
+              mb={["100px", "70px", "0px"]}
+            >
+              <Text fontSize={[30, 40, 40]}>Get early access</Text>
               <HStack spacing={0.5}>
                 <Input
                   value={inputValue}
@@ -103,6 +133,7 @@ function App() {
                   }}
                 ></Input>
                 <ButtomChakra
+                  fontSize={[15, 15, 20]}
                   h="55px"
                   w="100px"
                   bg="white"
@@ -121,6 +152,25 @@ function App() {
                     />
                   }
                   onClick={() => {
+                    const isValidEmail = inputValue
+                      .toLowerCase()
+                      .match(
+                        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                      );
+
+                    if (!isValidEmail) {
+                      toast({
+                        title: "Email is not valid.",
+                        status: "error",
+                        duration: 3000,
+                        isClosable: true,
+                        containerStyle: {
+                          marginBottom: toastMB,
+                        },
+                      });
+                      return;
+                    }
+
                     setInputValue("");
                     toast({
                       title: "Email submitted.",
@@ -129,7 +179,7 @@ function App() {
                       duration: 9000,
                       isClosable: true,
                       containerStyle: {
-                        marginBottom: "100px",
+                        marginBottom: toastMB,
                       },
                     });
                   }}
