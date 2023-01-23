@@ -1,4 +1,6 @@
+import { useState } from "react";
 import {
+  useToast,
   Container,
   Flex,
   HStack,
@@ -14,6 +16,9 @@ import { IoLogoGooglePlaystore } from "react-icons/io5";
 import "./App.css";
 
 function App() {
+  const [inputValue, setInputValue] = useState("");
+  const toast = useToast();
+
   //#a9c45e
   //#050C15
   //textShadow="-2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000"
@@ -80,6 +85,10 @@ function App() {
               <Text fontSize="2.5rem">Get early access</Text>
               <HStack spacing={0.5}>
                 <Input
+                  value={inputValue}
+                  onChange={(e) => {
+                    setInputValue(e.target.value);
+                  }}
                   h="55px"
                   placeholder="write your E-mail"
                   _placeholder={{
@@ -111,6 +120,19 @@ function App() {
                       }}
                     />
                   }
+                  onClick={() => {
+                    setInputValue("");
+                    toast({
+                      title: "Email submitted.",
+                      description: "Thank you, we will reach out soon.",
+                      status: "success",
+                      duration: 9000,
+                      isClosable: true,
+                      containerStyle: {
+                        marginBottom: "100px",
+                      },
+                    });
+                  }}
                 >
                   Send
                 </ButtomChakra>
