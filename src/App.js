@@ -71,7 +71,7 @@ function App() {
                   </span>
                   <br style={{ marginBottom: "0px" }} />
                   <span style={{ fontWeight: "bold", fontSize: "1.5rem" }}>
-                    Play Store
+                    Google Play
                   </span>
                 </Text>
               </ButtomChakra>
