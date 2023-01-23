@@ -54,7 +54,12 @@ function App() {
           </Box>
         </Flex>
         <Container maxW="6xl" mt={[0, 10]}>
-          <Flex align="flex-end" justify="space-between" flexWrap="wrap">
+          <Flex
+            align="flex-end"
+            justify="space-between"
+            flexWrap="wrap"
+            gap={6}
+          >
             <Flex flexWrap="wrap" gap={4}>
               <ButtomChakra
                 h={["55px", "70px"]}
@@ -109,7 +114,7 @@ function App() {
             </Flex>
             <VStack
               align="flex-start"
-              mt={["35px", "30px", "0px"]}
+              mt={["20px", "15px", "0px"]}
               mb={["100px", "70px", "0px"]}
             >
               <Text fontSize={[30, 40, 40]}>Get early access</Text>
